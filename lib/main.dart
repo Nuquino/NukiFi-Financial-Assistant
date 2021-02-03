@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'assets/bottom_navy_bar.dart';
 
-import 'budgetPage.dart';
+import 'login.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         primarySwatch: Colors.teal,
       ),
-      home: BudgetPage(title: 'NukiFi Financial Assistant'),
+      home: LoginPage(),
     );
   }
 }
