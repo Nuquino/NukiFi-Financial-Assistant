@@ -34,7 +34,7 @@ class BottomNavyBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bgColor = (backgroundColor == null)
-        ? Theme.of(context).bottomAppBarColor
+        ? Theme.of(context).backgroundColor
         : backgroundColor;
 
     return Container(

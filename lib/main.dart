@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'assets/bottom_navy_bar.dart';
+import 'package:nukifi_financial_assistant/budgetPage.dart';
+import 'package:nukifi_financial_assistant/insightsPage.dart';
+import 'package:nukifi_financial_assistant/billCalendarPage.dart';
+import 'package:nukifi_financial_assistant/settings.dart';
+import 'package:nukifi_financial_assistant/login.dart';
 
 import 'login.dart';
 
@@ -28,6 +32,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
       ),
       home: LoginPage(),
+      routes: <String, WidgetBuilder> {
+        '/budgetPage': (context) => BudgetPage(),
+        '/insightsPage': (context) => InsightsPage(),
+        '/billCalendarPage': (context) => BillCalendarPage(),
+        '/settings': (context) => SettingsPage(),
+      },
     );
   }
 }

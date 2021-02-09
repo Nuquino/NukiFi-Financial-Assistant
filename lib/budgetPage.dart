@@ -22,7 +22,8 @@ class BudgetPage extends StatefulWidget {
 
 class _MyBudgetPageState extends State<BudgetPage> {
   int _counter = 0;
-  int currentIndex=0;
+  int currentIndex = 0;
+  PageController pageController;
 
   void _addNewCategory() {
     setState(() {
@@ -107,6 +108,7 @@ class _MyBudgetPageState extends State<BudgetPage> {
             itemCornerRadius: 8,
             onItemSelected: (index) => setState(() {
               currentIndex = index;
+              //pageController.animateToPage(currentIndex, duration: Duration(milliseconds: 300), curve: Curves.ease);
             }),
             items: [
               BottomNavyBarItem(

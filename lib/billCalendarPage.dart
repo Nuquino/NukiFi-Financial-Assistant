@@ -22,7 +22,7 @@ class BillCalendarPage extends StatefulWidget {
 
 class _MyBudgetPageState extends State<BillCalendarPage> {
   int _counter = 0;
-  int currentIndex=2;
+  int currentIndex = 2;
 
   void _addNewBill() {
     setState(() {

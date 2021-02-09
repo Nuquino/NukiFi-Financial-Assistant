@@ -22,7 +22,7 @@ class SettingsPage extends StatefulWidget {
 
 class _MyBudgetPageState extends State<SettingsPage> {
   int _counter = 0;
-  int currentIndex=3;
+  int currentIndex = 3;
 
   void _addNewCategory() {
     setState(() {

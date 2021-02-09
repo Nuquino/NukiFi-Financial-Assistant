@@ -22,7 +22,7 @@ class InsightsPage extends StatefulWidget {
 
 class _MyBudgetPageState extends State<InsightsPage> {
   int _counter = 0;
-  int currentIndex=1;
+  int currentIndex = 1;
 
   void _addNewCategory() {
     setState(() {
