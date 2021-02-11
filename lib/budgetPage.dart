@@ -49,7 +49,8 @@ class _MyBudgetPageState extends State<BudgetPage> {
           centerTitle: true,
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
+          //title: Text(widget.title),
+          title: Text('NukiFi Financial Assistant'),
         ),
         drawer: new Drawer(
             child: ListView(
@@ -108,7 +109,19 @@ class _MyBudgetPageState extends State<BudgetPage> {
             itemCornerRadius: 8,
             onItemSelected: (index) => setState(() {
               currentIndex = index;
-              //pageController.animateToPage(currentIndex, duration: Duration(milliseconds: 300), curve: Curves.ease);
+
+              if(currentIndex == 1) {
+                Navigator.pushNamed(context, '/insightsPage');
+              }
+
+              if(currentIndex == 2) {
+                Navigator.pushNamed(context, '/billCalendarPage');
+              }
+
+              if(currentIndex == 3) {
+                Navigator.pushNamed(context, '/settings');
+              }
+
             }),
             items: [
               BottomNavyBarItem(

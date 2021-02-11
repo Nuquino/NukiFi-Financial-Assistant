@@ -107,6 +107,19 @@ class _MyBudgetPageState extends State<InsightsPage> {
             itemCornerRadius: 8,
             onItemSelected: (index) => setState(() {
               currentIndex = index;
+
+              if(currentIndex == 0) {
+                Navigator.pushNamed(context, '/budgetPage');
+              }
+
+              if(currentIndex == 2) {
+                Navigator.pushNamed(context, '/billCalendarPage');
+              }
+
+              if(currentIndex == 3) {
+                Navigator.pushNamed(context, '/settings');
+              }
+
             }),
             items: [
               BottomNavyBarItem(
