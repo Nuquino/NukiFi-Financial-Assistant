@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "412204969993",
+    "project_id": "nukifi-financial-assistant",
+    "storage_bucket": "nukifi-financial-assistant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412204969993:android:ff819be3be1db6caa3c8d8",
+        "android_client_info": {
+          "package_name": "nukifi.nukifi_financial_assistant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412204969993-i7p1iva0fjti4ir300t7s69u5n8pog3m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXqgkFMoJquoJrmw1NatzjMB0pbOYPsLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412204969993-i7p1iva0fjti4ir300t7s69u5n8pog3m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
