@@ -33,6 +33,7 @@ class _MyBudgetPageState extends State<BudgetPage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      Navigator.pushNamed(context, '/addNewCategoryPage');
     });
   }
 
@@ -83,8 +84,41 @@ class _MyBudgetPageState extends State<BudgetPage> {
             // center the children vertically; the main axis here is the vertical
             // axis because Columns are vertical (the cross axis would be
             // horizontal).
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              Container(
+                margin: EdgeInsets.all(8),
+                height: 300,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  color: Colors.black26,
+                  elevation: 5,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const ListTile(
+                        title: Text('Overview', textAlign: TextAlign.center, style: TextStyle(color: Colors.white), textScaleFactor: 1.5, ),
+                      ),
+                      ButtonTheme.bar(
+                        child: ButtonBar(
+                          children: <Widget>[
+                            FlatButton(
+                              child: const Text('Edit', style: TextStyle(color: Colors.white)),
+                              onPressed: () {},
+                            ),
+                            FlatButton(
+                              child: const Text('Delete', style: TextStyle(color: Colors.white)),
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               Text(
                 'This is the budget page',
               ),
@@ -98,12 +132,13 @@ class _MyBudgetPageState extends State<BudgetPage> {
 
         floatingActionButton: FloatingActionButton(
           onPressed: _addNewCategory,
-          backgroundColor: Colors.lightBlue,
+          backgroundColor: Colors.red,
           tooltip: 'Add a New Category',
           child: Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
 
         bottomNavigationBar: BottomNavyBar(
+            backgroundColor: Colors.black26,
             selectedIndex: currentIndex,
             showElevation: true,
             itemCornerRadius: 8,

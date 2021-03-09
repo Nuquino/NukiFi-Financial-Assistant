@@ -102,6 +102,7 @@ class _MyBudgetPageState extends State<SettingsPage> {
         ), // This trailing comma makes auto-formatting nicer for build methods.
 
         bottomNavigationBar: BottomNavyBar(
+            backgroundColor: Colors.black26,
             selectedIndex: currentIndex,
             showElevation: true,
             itemCornerRadius: 8,

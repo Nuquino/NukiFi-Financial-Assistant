@@ -96,12 +96,13 @@ class _MyBudgetPageState extends State<InsightsPage> {
 
         floatingActionButton: FloatingActionButton(
           onPressed: _addNewCategory,
-          backgroundColor: Colors.lightBlue,
+          backgroundColor: Colors.purpleAccent,
           tooltip: 'Add a New Category',
           child: Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
 
         bottomNavigationBar: BottomNavyBar(
+            backgroundColor: Colors.black26,
             selectedIndex: currentIndex,
             showElevation: true,
             itemCornerRadius: 8,

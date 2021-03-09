@@ -4,6 +4,7 @@ import 'package:nukifi_financial_assistant/insightsPage.dart';
 import 'package:nukifi_financial_assistant/billCalendarPage.dart';
 import 'package:nukifi_financial_assistant/settings.dart';
 import 'package:nukifi_financial_assistant/login.dart';
+import 'package:nukifi_financial_assistant/AddNewCategoryPage.dart';
 
 import 'login.dart';
 
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         '/insightsPage': (context) => InsightsPage(),
         '/billCalendarPage': (context) => BillCalendarPage(),
         '/settings': (context) => SettingsPage(),
+        '/addNewCategoryPage': (context)  =>  AddNewCategoryPage(),
       },
     );
   }
