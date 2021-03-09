@@ -58,14 +58,14 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: Text(
                 'Forgot Password',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
+                style: TextStyle(color: Colors.lightBlueAccent, fontSize: 15),
               ),
             ),
             Container(
               height: 50,
               width: 250,
               decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                  color: Colors.lightBlueAccent, borderRadius: BorderRadius.circular(20)),
               child: FlatButton(
                 onPressed: () {
                   Navigator.push(

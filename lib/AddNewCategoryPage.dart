@@ -24,7 +24,7 @@ class _MyBudgetPageState extends State<AddNewCategoryPage> {
   int _counter = 0;
   int currentIndex = 1;
 
-  void _addNewCategory() {
+  void _submitNewCategory() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -32,6 +32,7 @@ class _MyBudgetPageState extends State<AddNewCategoryPage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      Navigator.pushNamed(context, '/budgetPage');
     });
   }
 
@@ -68,25 +69,58 @@ class _MyBudgetPageState extends State<AddNewCategoryPage> {
             // center the children vertically; the main axis here is the vertical
             // axis because Columns are vertical (the cross axis would be
             // horizontal).
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'This is the insights page',
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: Text('Category Name'),
               ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headline4,
+              Padding(
+                //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                child: TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Name',
+                      hintText: 'Enter a name for the category'),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Text('Budget Limit'),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 15.0, right: 15.0, top: 15, bottom: 0),
+                //padding: EdgeInsets.symmetric(horizontal: 15),
+                child: TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Limit',
+                      hintText: 'Enter a Limit in Dollars'),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(25),
+              ),
+              Container(
+                height: 50,
+                width: 250,
+                decoration: BoxDecoration(
+                    color: Colors.teal, borderRadius: BorderRadius.circular(15)),
+                child: FlatButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/budgetPage');
+                  },
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(color: Colors.white, fontSize: 25),
+                  ),
+                ),
               ),
             ],
           ),
         ),
-
-        floatingActionButton: FloatingActionButton(
-          onPressed: _addNewCategory,
-          backgroundColor: Colors.purpleAccent,
-          tooltip: 'Add a New Category',
-          child: Icon(Icons.add),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
 
     );
   }

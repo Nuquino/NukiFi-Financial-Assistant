@@ -87,13 +87,13 @@ class _MyBudgetPageState extends State<BudgetPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.all(8),
+                margin: EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 20),
                 height: 300,
                 child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  color: Colors.black26,
+                  color: Colors.black12,
                   elevation: 5,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
