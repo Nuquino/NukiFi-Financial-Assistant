@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'assets/bottom_navy_bar.dart';
 
 // ignore: camel_case_types
 class AddNewCategoryPage extends StatefulWidget {
@@ -108,7 +107,7 @@ class _MyBudgetPageState extends State<AddNewCategoryPage> {
                 width: 250,
                 decoration: BoxDecoration(
                     color: Colors.teal, borderRadius: BorderRadius.circular(15)),
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/budgetPage');
                   },
@@ -123,5 +122,7 @@ class _MyBudgetPageState extends State<AddNewCategoryPage> {
         ),
 
     );
+
+
   }
 }

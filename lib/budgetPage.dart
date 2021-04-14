@@ -86,9 +86,31 @@ class _MyBudgetPageState extends State<BudgetPage> {
             // horizontal).
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              new GestureDetector(
+                child: Container(
+                  margin: EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 20),
+                  height: 300,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    color: Colors.black12,
+                    elevation: 5,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        const ListTile(
+                          title: Text('Overview', textAlign: TextAlign.center, style: TextStyle(color: Colors.white), textScaleFactor: 1.5, ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                onTap: () => Navigator.pushNamed(context, '/overview'),
+              ),
               Container(
-                margin: EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 20),
-                height: 300,
+                margin: EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 20),
+                height: 150,
                 child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -99,21 +121,7 @@ class _MyBudgetPageState extends State<BudgetPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       const ListTile(
-                        title: Text('Overview', textAlign: TextAlign.center, style: TextStyle(color: Colors.white), textScaleFactor: 1.5, ),
-                      ),
-                      ButtonTheme.bar(
-                        child: ButtonBar(
-                          children: <Widget>[
-                            FlatButton(
-                              child: const Text('Edit', style: TextStyle(color: Colors.white)),
-                              onPressed: () {},
-                            ),
-                            FlatButton(
-                              child: const Text('Delete', style: TextStyle(color: Colors.white)),
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
+                        title: Text('Food', textAlign: TextAlign.center, style: TextStyle(color: Colors.white), textScaleFactor: 1.5, ),
                       ),
                     ],
                   ),

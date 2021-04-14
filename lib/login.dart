@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
                     /*decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(50.0)),*/
-                    child: Image.asset('/assets/images/NukiFiLogo.png')),
+                    child: Image.asset('/assets/NukiFiLogo.png')),
               ),
             ),
             Padding(
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'Enter secure password'),
               ),
             ),
-            FlatButton(
+            TextButton(
               onPressed: (){
                 //TODO FORGOT PASSWORD SCREEN GOES HERE
               },
@@ -66,10 +66,10 @@ class _LoginPageState extends State<LoginPage> {
               width: 250,
               decoration: BoxDecoration(
                   color: Colors.lightBlueAccent, borderRadius: BorderRadius.circular(20)),
-              child: FlatButton(
+              child: TextButton(
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => BudgetPage(title: 'NukiFi Financial Assistant')));
+                      context, MaterialPageRoute(builder: (_) => BudgetPage( title: 'NukiFi Financial Assistant')));
                 },
                 child: Text(
                   'Login',

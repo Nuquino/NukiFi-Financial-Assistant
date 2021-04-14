@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:nukifi_financial_assistant/budgetPage.dart';
 import 'package:nukifi_financial_assistant/insightsPage.dart';
 import 'package:nukifi_financial_assistant/billCalendarPage.dart';
 import 'package:nukifi_financial_assistant/settings.dart';
 import 'package:nukifi_financial_assistant/login.dart';
 import 'package:nukifi_financial_assistant/AddNewCategoryPage.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import 'AddNewSubcategoryPage.dart';
 import 'login.dart';
+import 'onStartup.dart';
+import 'overview.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
   runApp(MyApp());
 }
 
@@ -32,13 +38,16 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         primarySwatch: Colors.teal,
       ),
-      home: LoginPage(),
+      home: StartupPage(),
       routes: <String, WidgetBuilder> {
         '/budgetPage': (context) => BudgetPage(),
         '/insightsPage': (context) => InsightsPage(),
         '/billCalendarPage': (context) => BillCalendarPage(),
         '/settings': (context) => SettingsPage(),
         '/addNewCategoryPage': (context)  =>  AddNewCategoryPage(),
+        '/overview': (context)  =>  OverviewPage(),
+        '/startupPage': (context)  =>  StartupPage(),
+        '/addNewSubcategoryPage': (context)  =>  AddNewSubcategoryPage(),
       },
     );
   }
