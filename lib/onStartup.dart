@@ -21,17 +21,17 @@ class _StartupPageState extends State<StartupPage> {
               padding: const EdgeInsets.only(top: 60.0),
               child: Center(
                 child: Container(
-                    width: 200,
-                    height: 200,
+                    width: 250,
+                    height: 250,
                     /*decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(50.0)),*/
-                    child: Image.asset('/assets/NukiFiLogo.png')),
+                    child: Image.asset('NukiFiLogo.png')),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(top: 30),
-              child: Text('What would you like me to call you?'),
+              child: Text('What would you like me to call you?', style: TextStyle(fontSize: 25)),
             ),
             Padding(
               //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
@@ -39,8 +39,8 @@ class _StartupPageState extends State<StartupPage> {
               child: TextField(
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'What is your name?',
-                    hintText: 'Enter your name'),
+                    labelText: 'Enter your name',
+                    hintText: 'Billy Bob Joe'),
               ),
             ),
 

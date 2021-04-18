@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:nukifi_financial_assistant/db/transactions.dart';
 
 part 'budget.g.dart';
 
@@ -12,6 +13,10 @@ class BudgetCategory extends HiveObject {
   int totalCategoryBudget;
   @HiveField(3)
   int currentSpent;
+  @HiveField(4)
+  List<BudgetCategory> subcategories;
+  @HiveField(5)
+  List<transaction> categoryTransactions;
 
   BudgetCategory({ this.categoryName, this.totalCategoryBudget = 0, this.currentSpent = 0 });
 }

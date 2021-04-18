@@ -4,12 +4,10 @@ import 'package:nukifi_financial_assistant/budgetPage.dart';
 import 'package:nukifi_financial_assistant/insightsPage.dart';
 import 'package:nukifi_financial_assistant/billCalendarPage.dart';
 import 'package:nukifi_financial_assistant/settings.dart';
-import 'package:nukifi_financial_assistant/login.dart';
 import 'package:nukifi_financial_assistant/AddNewCategoryPage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'AddNewSubcategoryPage.dart';
-import 'login.dart';
 import 'onStartup.dart';
 import 'overview.dart';
 

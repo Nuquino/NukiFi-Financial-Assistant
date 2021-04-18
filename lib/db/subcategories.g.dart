@@ -20,8 +20,9 @@ class BudgetSubcategoryAdapter extends TypeAdapter<BudgetSubcategory> {
       subcategoryName: fields[1] as String,
       totalSubcategoryBudget: fields[2] as int,
       currentSubcategorySpent: fields[3] as int,
-      attachedCategory: fields[4] as int,
-    )..id = fields[0] as String;
+    )
+      ..id = fields[0] as String
+      ..subcategoryTransactions = (fields[4] as List)?.cast<transaction>();
   }
 
   @override
@@ -37,7 +38,7 @@ class BudgetSubcategoryAdapter extends TypeAdapter<BudgetSubcategory> {
       ..writeByte(3)
       ..write(obj.currentSubcategorySpent)
       ..writeByte(4)
-      ..write(obj.attachedCategory);
+      ..write(obj.subcategoryTransactions);
   }
 
   @override

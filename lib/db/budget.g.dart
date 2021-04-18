@@ -20,13 +20,16 @@ class BudgetCategoryAdapter extends TypeAdapter<BudgetCategory> {
       categoryName: fields[1] as String,
       totalCategoryBudget: fields[2] as int,
       currentSpent: fields[3] as int,
-    )..id = fields[0] as String;
+    )
+      ..id = fields[0] as String
+      ..subcategories = (fields[4] as List)?.cast<BudgetCategory>()
+      ..categoryTransactions = (fields[5] as List)?.cast<transaction>();
   }
 
   @override
   void write(BinaryWriter writer, BudgetCategory obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -34,7 +37,11 @@ class BudgetCategoryAdapter extends TypeAdapter<BudgetCategory> {
       ..writeByte(2)
       ..write(obj.totalCategoryBudget)
       ..writeByte(3)
-      ..write(obj.currentSpent);
+      ..write(obj.currentSpent)
+      ..writeByte(4)
+      ..write(obj.subcategories)
+      ..writeByte(5)
+      ..write(obj.categoryTransactions);
   }
 
   @override

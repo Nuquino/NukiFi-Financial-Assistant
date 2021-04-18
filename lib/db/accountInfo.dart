@@ -8,6 +8,8 @@ class AccountInfo extends HiveObject {
   String id;
   @HiveField(1)
   String nickname;
+  @HiveField(2)
+  int budgetTimeFrame;
 
-  AccountInfo({ this.nickname });
+  AccountInfo({ this.nickname = '', this.budgetTimeFrame = 0 });
 }

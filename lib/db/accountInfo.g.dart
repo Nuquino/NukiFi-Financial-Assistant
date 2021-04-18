@@ -18,17 +18,20 @@ class AccountInfoAdapter extends TypeAdapter<AccountInfo> {
     };
     return AccountInfo(
       nickname: fields[1] as String,
+      budgetTimeFrame: fields[2] as int,
     )..id = fields[0] as String;
   }
 
   @override
   void write(BinaryWriter writer, AccountInfo obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.nickname);
+      ..write(obj.nickname)
+      ..writeByte(2)
+      ..write(obj.budgetTimeFrame);
   }
 
   @override
