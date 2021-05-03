@@ -18,5 +18,5 @@ class BudgetCategory extends HiveObject {
   @HiveField(5)
   List<transaction> categoryTransactions;
 
-  BudgetCategory({ this.categoryName, this.totalCategoryBudget = 0, this.currentSpent = 0 });
+  BudgetCategory({ this.categoryName = '', this.totalCategoryBudget = 0, this.currentSpent = 0 });
 }

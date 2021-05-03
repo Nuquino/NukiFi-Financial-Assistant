@@ -10,11 +10,13 @@ class transaction extends HiveObject {
   @HiveField(1)
   String merchantName;
   @HiveField(2)
-  DateTime transactionTime;
+  int transactionAmount;
   @HiveField(3)
-  int category;
+  DateTime transactionTime;
   @HiveField(4)
+  int category;
+  @HiveField(5)
   int subcategory;
 
-  transaction({ this.merchantName, this.transactionTime, this.category, this.subcategory = null });
+  transaction({ this.merchantName = '', this.transactionAmount, this.transactionTime, this.category, this.subcategory });
 }

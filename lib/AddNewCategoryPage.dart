@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
+import 'package:nukifi_financial_assistant/db/budget.dart';
+
+import 'HiveBoxes.dart';
 
 // ignore: camel_case_types
 class AddNewCategoryPage extends StatefulWidget {
-  AddNewCategoryPage({Key key, this.title}) : super(key: key);
+
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -13,30 +18,27 @@ class AddNewCategoryPage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
 
   @override
-  _MyBudgetPageState createState() => _MyBudgetPageState();
+  _AddNewCategoryPageState createState() {
+    return _AddNewCategoryPageState();
+  }
 }
 
-class _MyBudgetPageState extends State<AddNewCategoryPage> {
-  int _counter = 0;
+class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
   int currentIndex = 1;
+  final _categoryFormKey = GlobalKey<FormState>();
 
-  void _submitNewCategory() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-      Navigator.pushNamed(context, '/budgetPage');
-    });
-  }
+  String categoryTitle;
+  var categoryTotal;
+
+  Box categoryBox;
 
   @override
   Widget build(BuildContext context) {
+
+    double deviceWidth = MediaQuery.of(context).size.width;
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -74,47 +76,70 @@ class _MyBudgetPageState extends State<AddNewCategoryPage> {
                 padding: EdgeInsets.only(top: 20),
                 child: Text('Category Name'),
               ),
-              Padding(
+              Padding(padding: EdgeInsets.all(10)),
+              Form(key: _categoryFormKey,
                 //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                child: TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Name',
-                      hintText: 'Enter a name for the category'),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Text('Budget Limit'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 15, bottom: 0),
-                //padding: EdgeInsets.symmetric(horizontal: 15),
-                child: TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Limit',
-                      hintText: 'Enter a Limit in Dollars'),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(25),
-              ),
-              Container(
-                height: 50,
-                width: 250,
-                decoration: BoxDecoration(
-                    color: Colors.teal, borderRadius: BorderRadius.circular(15)),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/budgetPage');
-                  },
-                  child: Text(
-                    'Submit',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
-                  ),
+                child: Container(
+                  width: deviceWidth * .8,
+                  child: Column(
+
+                      children: <Widget>[
+                        // Add TextFormFields and ElevatedButton here
+
+                        TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a name for the category';
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Enter the name for your category',
+                              hintText: 'Number 1 category'),
+                          onChanged: (value) {
+                            setState(() {
+                              categoryTitle = value;
+                            });
+                          },
+                        ),
+                        Padding(padding: EdgeInsets.all(20)),
+                        Text('Enter The Category Budget'),
+                        Padding(padding: EdgeInsets.all(10)),
+                        TextFormField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter an amount';
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Enter the budget for the category',
+                              hintText: '100'),
+                          onChanged: (value) {
+                            setState(() {
+                              categoryTotal = int.parse(value);
+                            });
+                          },
+                        ),
+                        Padding(padding: EdgeInsets.all(15)),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0),),
+                            primary: Colors.lightBlue,
+                            onPrimary: Colors.lightBlueAccent,
+                            elevation: 20,
+                            minimumSize: Size(200,50),
+                          ),
+                          child: Text ('Continue', style: TextStyle(color: Colors.white, fontSize: 25)),
+                          onPressed: _validateAndSave,
+                        ),
+                      ]),
                 ),
               ),
             ],
@@ -124,5 +149,20 @@ class _MyBudgetPageState extends State<AddNewCategoryPage> {
     );
 
 
+  }
+  void _validateAndSave() {
+    final form = _categoryFormKey.currentState;
+    if (form.validate()) {
+      _onFormSubmit();
+    } else {
+      print('Please fill out the category details');
+    }
+  }
+
+  void _onFormSubmit() {
+    categoryBox = Hive.box<BudgetCategory>(HiveBoxes.categories);
+    categoryBox.add(BudgetCategory(categoryName: categoryTitle, totalCategoryBudget: categoryTotal, currentSpent: 0));
+    Navigator.pushNamed(context, '/budgetPage');
+    print("Add Category Form Submitted");
   }
 }

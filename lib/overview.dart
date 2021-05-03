@@ -20,20 +20,9 @@ class OverviewPage extends StatefulWidget {
 }
 
 class _MyBudgetPageState extends State<OverviewPage> {
-  int _counter = 0;
+
   int currentIndex = 1;
 
-  void _submitNewCategory() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-      Navigator.pushNamed(context, '/budgetPage');
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +37,7 @@ class _MyBudgetPageState extends State<OverviewPage> {
         centerTitle: true,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text('Overview'),
+        title: Text('Overview  Page'),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -70,53 +59,34 @@ class _MyBudgetPageState extends State<OverviewPage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: Text('Category Name'),
-            ),
-            Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Name',
-                    hintText: 'Enter a name for the category'),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Text('Budget Limit'),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
-              //padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Limit',
-                    hintText: 'Enter a Limit in Dollars'),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(25),
-            ),
             Container(
-              height: 50,
-              width: 250,
-              decoration: BoxDecoration(
-                  color: Colors.teal, borderRadius: BorderRadius.circular(15)),
-              child: FlatButton(
+              margin: EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 20),
+                height: 300,
+                  child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  color: Colors.black12,
+                    elevation: 5,
+                    child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const ListTile(
+                    title: Text('Overview', textAlign: TextAlign.center, style: TextStyle(color: Colors.white), textScaleFactor: 1.5, ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+              TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/budgetPage');
                 },
                 child: Text(
-                  'Submit',
+                  'Close',
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
-            ),
           ],
         ),
       ),

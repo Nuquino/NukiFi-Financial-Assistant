@@ -1,23 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:nukifi_financial_assistant/HiveBoxes.dart';
 import 'package:nukifi_financial_assistant/budgetPage.dart';
 import 'package:nukifi_financial_assistant/insightsPage.dart';
 import 'package:nukifi_financial_assistant/billCalendarPage.dart';
 import 'package:nukifi_financial_assistant/settings.dart';
 import 'package:nukifi_financial_assistant/AddNewCategoryPage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'AddNewTransactionPage.dart';
+import 'db/budget.dart';
+import 'db/accountInfo.dart';
+import 'db/subcategories.dart';
+import 'db/transactions.dart';
 
 import 'AddNewSubcategoryPage.dart';
 import 'onStartup.dart';
 import 'overview.dart';
 
 void main() async {
+  print("Boxes attempting to be opened");
+  //initializing hive and the hive boxes/adapters
   await Hive.initFlutter();
+
+  Hive.registerAdapter(AccountInfoAdapter());
+  await Hive.openBox<AccountInfo>(HiveBoxes.accountInfo);
+
+  Hive.registerAdapter(BudgetCategoryAdapter());
+  await Hive.openBox<BudgetCategory>(HiveBoxes.categories);
+
+  Hive.registerAdapter(BudgetSubcategoryAdapter());
+  await Hive.openBox<BudgetSubcategory>(HiveBoxes.subcategories);
+
+  Hive.registerAdapter(transactionAdapter());
+  await Hive.openBox<transaction>(HiveBoxes.transactions);
+
+  print('Boxes Opened');
+
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+
+  @override
+  _MyAppState createState() => _MyAppState();
+
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void dispose() async {
+    Hive.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,6 +82,7 @@ class MyApp extends StatelessWidget {
         '/overview': (context)  =>  OverviewPage(),
         '/startupPage': (context)  =>  StartupPage(),
         '/addNewSubcategoryPage': (context)  =>  AddNewSubcategoryPage(),
+        '/addNewTransactionPage': (context)  =>  AddNewTransactionPage(),
       },
     );
   }

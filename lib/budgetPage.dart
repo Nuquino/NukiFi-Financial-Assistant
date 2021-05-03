@@ -1,5 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'HiveBoxes.dart';
 import 'assets/bottom_navy_bar.dart';
+import 'db/budget.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 // ignore: camel_case_types
 class BudgetPage extends StatefulWidget {
@@ -21,9 +26,19 @@ class BudgetPage extends StatefulWidget {
 }
 
 class _MyBudgetPageState extends State<BudgetPage> {
-  int _counter = 0;
   int currentIndex = 0;
   PageController pageController;
+
+  void _addNewTransaction() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      Navigator.pushNamed(context, '/addNewTransactionPage');
+    });
+  }
 
   void _addNewCategory() {
     setState(() {
@@ -32,7 +47,6 @@ class _MyBudgetPageState extends State<BudgetPage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
       Navigator.pushNamed(context, '/addNewCategoryPage');
     });
   }
@@ -101,12 +115,34 @@ class _MyBudgetPageState extends State<BudgetPage> {
                       children: <Widget>[
                         const ListTile(
                           title: Text('Overview', textAlign: TextAlign.center, style: TextStyle(color: Colors.white), textScaleFactor: 1.5, ),
+                          contentPadding: EdgeInsets.only(bottom: 20),
+                          subtitle: Text('\$0      /      \$150'),
                         ),
                       ],
                     ),
                   ),
                 ),
                 onTap: () => Navigator.pushNamed(context, '/overview'),
+              ),
+              /*Container(
+                margin: EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 20),
+                height: 150,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  color: Colors.black12,
+                  elevation: 5,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const ListTile(
+                        title: Text('Food', textAlign: TextAlign.center, style: TextStyle(color: Colors.white), textScaleFactor: 1.5, ),
+                        subtitle: Text('\$0     /     \$100'),
+                      ),
+                    ],
+                  ),
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 20),
@@ -121,27 +157,66 @@ class _MyBudgetPageState extends State<BudgetPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       const ListTile(
-                        title: Text('Food', textAlign: TextAlign.center, style: TextStyle(color: Colors.white), textScaleFactor: 1.5, ),
+                        title: Text('Test', textAlign: TextAlign.center, style: TextStyle(color: Colors.white), textScaleFactor: 1.5, ),
+                        subtitle: Text('\$0     /     \$50'),
                       ),
                     ],
                   ),
                 ),
+              ),*/
+              Padding(padding: EdgeInsets.all(5)),
+              Text('Categories', style: TextStyle(fontSize: 23)),
+              Padding(padding: EdgeInsets.all(3)),
+              Text('(Swipe right to delete)', style: TextStyle(fontSize: 10)),
+              Padding(padding: EdgeInsets.all(10)),
+              ValueListenableBuilder(
+                valueListenable: Hive.box<BudgetCategory>(HiveBoxes.categories).listenable(),
+                builder: (context, Box<BudgetCategory> box, _) {
+                  if (box.values.isEmpty)
+                    return Center(
+                      child: Text("No categories yet. Create one below!"),
+                    );
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    padding: EdgeInsets.all(15),
+                    itemCount: box.values.length,
+                    itemBuilder: (context, index) {
+                      BudgetCategory res = box.getAt(index);
+                      return Dismissible(
+                        background: Container(color: Colors.redAccent, child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Row(
+                          children: [
+                            Icon(Icons.delete, color: Colors.white),
+                            Text('Delete', style: TextStyle(color: Colors.white)),
+                          ],
+                        ),
+                      ),),
+                        key: UniqueKey(),
+                        onDismissed: (direction) {
+                          res.delete();
+                        },
+                        child: ListTile(
+                            leading: Icon(Icons.account_balance_wallet_outlined, size: 35),
+                            title: Text(res.categoryName == null ? '' : res.categoryName, style: TextStyle(fontSize: 20)),
+                            subtitle: Text(res.totalCategoryBudget.toString() == null ? '' : '\$' + res.totalCategoryBudget.toString(), style: TextStyle(fontSize: 15)),
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
-              Text(
-                'This is the budget page',
-              ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headline4,
-              ),
+              Padding(padding: EdgeInsets.all(20)),
+              TextButton(onPressed: _addNewCategory, child: Text('+ Add Category +', style: TextStyle(color: Colors.red, fontSize: 17)))
             ],
           ),
         ),
 
         floatingActionButton: FloatingActionButton(
-          onPressed: _addNewCategory,
+          onPressed: _addNewTransaction,
           backgroundColor: Colors.red,
-          tooltip: 'Add a New Category',
+          tooltip: 'Add a New Transaction',
           child: Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
 

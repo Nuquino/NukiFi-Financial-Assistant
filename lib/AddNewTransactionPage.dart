@@ -3,11 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 
 import 'HiveBoxes.dart';
-import 'db/subcategories.dart';
+import 'db/transactions.dart';
 
 // ignore: camel_case_types
-class AddNewSubcategoryPage extends StatefulWidget {
-  AddNewSubcategoryPage({Key key, this.title}) : super(key: key);
+class AddNewTransactionPage extends StatefulWidget {
+  AddNewTransactionPage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -21,18 +21,19 @@ class AddNewSubcategoryPage extends StatefulWidget {
   final String title;
 
   @override
-  _AddNewSubcategoryPageState createState() => _AddNewSubcategoryPageState();
+  _AddNewTransactionPageState createState() => _AddNewTransactionPageState();
 }
 
-class _AddNewSubcategoryPageState extends State<AddNewSubcategoryPage> {
+class _AddNewTransactionPageState extends State<AddNewTransactionPage> {
   int currentIndex = 1;
 
-  final _subcategoryFormKey = GlobalKey<FormState>();
+  final _transactionFormKey = GlobalKey<FormState>();
 
-  String subcategoryTitle;
-  var subcategoryTotal;
+  String merchantTitle;
+  var transactionTotal;
 
-  Box subcategoryBox;
+  Box transactionBox;
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class _AddNewSubcategoryPageState extends State<AddNewSubcategoryPage> {
         centerTitle: true,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text('Add a New Subcategory'),
+        title: Text('Add a New Transaction'),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -74,9 +75,10 @@ class _AddNewSubcategoryPageState extends State<AddNewSubcategoryPage> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(top: 20),
-              child: Text('Category Name'),
+              child: Text('Merchant Name'),
             ),
-            Form(key: _subcategoryFormKey,
+            Padding(padding: EdgeInsets.all(10)),
+            Form(key: _transactionFormKey,
               //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
               child: Container(
                 width: deviceWidth * .8,
@@ -88,21 +90,23 @@ class _AddNewSubcategoryPageState extends State<AddNewSubcategoryPage> {
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter a name for the category';
+                            return 'Please enter a name for the merchant';
                           }
                           return null;
                         },
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'Enter the name for your category',
-                            hintText: 'Number 1 category'),
+                            labelText: 'Enter the name for your merchant',
+                            hintText: 'Market Place'),
                         onChanged: (value) {
                           setState(() {
-                            subcategoryTitle = value;
+                            merchantTitle = value;
                           });
                         },
                       ),
-
+                      Padding(padding: EdgeInsets.all(20)),
+                      Text('Enter The Transaction Amount'),
+                      Padding(padding: EdgeInsets.all(10)),
                       TextFormField(
                         keyboardType: TextInputType.number,
                         inputFormatters: <TextInputFormatter>[
@@ -110,22 +114,22 @@ class _AddNewSubcategoryPageState extends State<AddNewSubcategoryPage> {
                         ],
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter an amount';
+                            return 'Please enter an amount for the transaction';
                           }
                           return null;
                         },
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'Enter the budget for the category',
-                            hintText: '100'),
+                            labelText: 'Enter the amount of the transaction',
+                            hintText: '100.00'),
                         onChanged: (value) {
                           setState(() {
-                            subcategoryTotal = int.parse(value);
+                            transactionTotal = int.parse(value);
                           });
                         },
                       ),
 
-
+                      Padding(padding: EdgeInsets.all(15)),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0),),
@@ -146,8 +150,9 @@ class _AddNewSubcategoryPageState extends State<AddNewSubcategoryPage> {
 
     );
   }
+
   void _validateAndSave() {
-    final form = _subcategoryFormKey.currentState;
+    final form = _transactionFormKey.currentState;
     if (form.validate()) {
       _onFormSubmit();
     } else {
@@ -156,8 +161,9 @@ class _AddNewSubcategoryPageState extends State<AddNewSubcategoryPage> {
   }
 
   void _onFormSubmit() {
-    subcategoryBox = Hive.box<BudgetSubcategory>(HiveBoxes.subcategories);
-    subcategoryBox.add(BudgetSubcategory(subcategoryName: subcategoryTitle, totalSubcategoryBudget: subcategoryTotal, currentSubcategorySpent: 0));
-    Navigator.pushNamed(context, '/overviewPage');
+    transactionBox = Hive.box<transaction>(HiveBoxes.transactions);
+    transactionBox.add(transaction(merchantName: merchantTitle, transactionAmount: transactionTotal, transactionTime: null, category: null, subcategory: null));
+    Navigator.pushNamed(context, '/budgetPage');
+    print("Add Transaction Form Submitted");
   }
 }
